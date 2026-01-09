@@ -1,13 +1,49 @@
-name: ARC Test
+name: Dummy CI/CD Pipeline
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  test:
+  ci:
+    name: Dummy CI Job
     runs-on: medvista-runner
-    strategy:
-      matrix:
-        job: [1,2,3,4]
+
     steps:
-      - run: echo "Running job ${{ matrix.job }}"
-      - run: sleep 60
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show runner details
+        run: |
+          echo "Runner name: $RUNNER_NAME"
+          echo "OS: $RUNNER_OS"
+          echo "Architecture: $RUNNER_ARCH"
+
+      - name: Dummy build step
+        run: |
+          echo "Starting dummy build..."
+          sleep 5
+          echo "Build completed successfully"
+
+      - name: Dummy test step
+        run: |
+          echo "Running dummy tests..."
+          sleep 3
+          echo "All tests passed ✅"
+
+  cd:
+    name: Dummy CD Job
+    needs: ci
+    runs-on: medvista-runner-11
+
+    steps:
+      - name: Dummy deploy step
+        run: |
+          echo "Deploying application..."
+          sleep 5
+          echo "Deployment successful 🚀"
