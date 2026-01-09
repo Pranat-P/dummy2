@@ -1,0 +1,13 @@
+name: ARC Test
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    runs-on: [self-hosted, medvista-runner-11]
+    strategy:
+      matrix:
+        job: [1,2,3,4]
+    steps:
+      - run: echo "Running job ${{ matrix.job }}"
+      - run: sleep 60
