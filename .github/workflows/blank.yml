@@ -39,7 +39,7 @@ jobs:
   cd:
     name: Dummy CD Job
     needs: ci
-    runs-on: medvista-runner-11
+    runs-on: medvista-runner
 
     steps:
       - name: Dummy deploy step
